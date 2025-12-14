@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Plataforma Comunitaria - Seguridad Digital</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+</style>
+<body>
+<!-- HEADER -->
+<header class="topbar">
+  <div class="brand">CyberGuard</div>
+
+  <nav>
+    <button class="nav-btn" id="btn-feed" type="button">📰 Reportes</button>
+    <button class="nav-btn" id="btn-new" type="button">📢 Nuevo reporte</button>
+
+    <!-- nuevos botones junto a 'Reportes' -->
+    <button class="nav-btn" id="btn-chatbot" type="button">🤖 Chatbot</button>
+    <button class="nav-btn" id="btn-test" type="button">📝 Test</button>
+    <button class="nav-btn" id="btn-juego" type="button">🎮 Juegos</button>
+<button class="nav-btn" id="btn-profile" type="button">👤 Perfil</button>
+
+    <span id="welcome" class="welcome"></span>
+    <button class="nav-btn" id="btn-logout" type="button" style="display:none">Cerrar sesión</button>
+  </nav>
+</header>
+
+<!-- MAIN -->
+<main class="main">
+  <!-- LOGIN -->
+  <section id="login" class="card center">
+    <h2 class="text-3xl font-extrabold text-gray-900">Iniciar sesión</h2>
+    <p class="mt-2 text-sm text-gray-600"></p>
+      o <button class="link" id="btn-show-register" type="button">crear nueva cuenta</button>
+    <input id="loginUser" type="text" placeholder="Usuario" />
+    <input id="loginPass" type="password" placeholder="Contraseña" />
+    <div class="row">
+      <button class="primary" id="btn-login" type="button">Entrar</button>
+    </div>
+  </section>
+
+  <!-- REGISTRO -->
+  <section id="registro" class="card hidden">
+    <h2>Crear cuenta</h2>
+    <input id="regNombre" type="text" placeholder="Nombre completo" />
+    <input id="regUser" type="text" placeholder="Nombre de usuario (único)" />
+    <input id="regPass" type="password" placeholder="Contraseña" />
+    <input id="regPass2" type="password" placeholder="Repite la contraseña" />
+    <select id="regSexo">
+      <option value="">Selecciona tu género</option>
+      <option value="Mujer">Mujer</option>
+      <option value="Hombre">Hombre</option>
+      <option value="Otro">Otro</option>
+    </select>
+    <input id="regTel" type="tel" placeholder="Número telefónico (opcional)" />
+    <div class="row">
+      <button class="primary" id="btn-register" type="button">Registrar</button>
+      <button class="link" id="btn-reg-back" type="button">Volver</button>
+    </div>
+  </section>
+
+  <!-- PANEL -->
+  <section id="panel" class="card hidden">
+    <h2>Crear nuevo reporte</h2>
+    <input id="titulo" type="text" placeholder="Título del incidente" />
+    <textarea id="descripcion" rows="4" placeholder="Describe con detalle lo que ocurrió"></textarea>
+    <select id="categoria">
+      <option value="phishing">Phishing</option>
+      <option value="malware">Malware</option>
+      <option value="exploit">Exploit</option>
+      <option value="desconocido">Desconocido</option>
+    </select>
+    <div class="row">
+      <button class="primary" id="btn-send-report" type="button">Enviar reporte</button>
+    </div>
+    <p class="small">Después de enviar podrás ver la asesoría específica y los recursos.</p>
+  </section>
+
+  <!-- FEED -->
+  <section id="feed" class="card hidden">
+    <div class="feed-header">
+      <h2>Foro comunitario — Reportes</h2>
+      <button class="secondary" id="btn-new-2" type="button">Nuevo reporte</button>
+    </div>
+    <div id="posts" class="posts"></div>
+    <div class="row">
+      <button class="link" id="btn-feed-back" type="button">Volver</button>
+    </div>
+  </section>
+
+  <!-- ASESORÍA -->
+  <section id="asesoria" class="card hidden">
+    <h2 id="asesoria-tit">Asesoría</h2>
+    <p id="asesoria-text"></p>
+
+    <div class="asesoria-block">
+      <h3>Mensaje de ánimo</h3>
+      <p id="asesoria-animo"></p>
+    </div>
+
+    <div class="asesoria-block">
+      <h3>Consejos y pasos prácticos</h3>
+      <ul id="asesoria-pasos"></ul>
+    </div>
+
+    <div class="asesoria-block">
+      <h3>Cómo evitar que vuelva a suceder</h3>
+      <ul id="asesoria-prevenir"></ul>
+    </div>
+
+    <div class="asesoria-block">
+      <h3>Video recomendado</h3>
+      <div id="asesoria-video"></div>
+    </div>
+
+    <div class="row">
+      <button class="primary" id="btn-asesoria-back" type="button">Volver al foro</button>
+    </div>
+  </section>
+
+  <!-- CHATBOT -->
+  <section id="chatbot-module" class="card hidden">
+    <h2>Chatbot de Ciberseguridad</h2>
+    <div id="chat-window" class="chat-window" aria-live="polite"></div>
+
+    <div class="row" style="margin-top:10px;">
+      <input id="chat-input" type="text" placeholder="Escribe o usa las opciones" />
+      <button class="primary" id="chat-send">Enviar</button>
+      <button class="secondary" id="chat-menu-home">Menú</button>
+      <button class="link" onclick="cerrarExtra('chatbot-module')">Cerrar</button>
+    </div>
+
+    <div class="small" style="margin-top:8px;">
+      Usa las opciones sugeridas o escribe tu pregunta.
+    </div>
+  </section>
+
+  <!-- TEST -->
+  <section id="test-module" class="card hidden">
+    <h2>Test de Seguridad (20 preguntas)</h2>
+    <p id="test-progress"></p>
+    <p id="test-question" class="test-q"></p>
+    <div id="test-choices" class="choices"></div>
+    <p id="test-result" class="test-result"></p>
+
+    <div class="row" style="margin-top:10px;">
+      <button class="primary" id="test-next" style="display:none;">Siguiente</button>
+      <button class="link" onclick="cerrarExtra('test-module')">Cerrar</button>
+    </div>
+  </section>
+<section id="profile-module" class="card hidden">
+  <h2>Mi Perfil</h2>
+
+  <p><strong>Nombre:</strong> <span id="p-nombre"></span></p>
+  <p><strong>Usuario:</strong> <span id="p-user"></span></p>
+  <p><strong>Sexo:</strong> <span id="p-sexo"></span></p>
+  <p><strong>Teléfono:</strong> <span id="p-tel"></span></p>
+
+  <div class="row">
+    <button class="link" onclick="cerrarExtra('profile-module')">Cerrar</button>
+  </div>
+</section>
+
+  <!-- JUEGOS -->
+<section id="juego-module" class="card hidden">
+  <h2>Zona de Juegos — Conciencia Cibernética</h2>
+
+  <div class="row" style="margin-bottom:12px;">
+    <button class="secondary" id="start-matching">Matching (Arrastrar)</button>
+    <button class="secondary" id="start-scenarios">Escoge la acción</button>
+    <button class="secondary" id="start-memory">Memoria</button>
+    <button class="secondary" id="start-passguess">Adivina la contraseña</button>
+    <button class="secondary" id="start-microretos">Micro-retos</button>
+    <button class="secondary" id="start-trivial">Trivial</button>
+    <button class="secondary" id="start-alerta">Alerta</button>
+<section id="profile-module" class="card hidden">
+  
+  <div class="row" style="margin-top:12px;">
+    <button class="link" onclick="cerrarExtra('profile-module')">Cerrar</button>
+  </div>
+</section>
+
+    <!-- NUEVO JUEGO (SOLO UNO) -->
+    <button class="secondary" id="start-phishinggame">Phishing o Real</button>
+
+    <button class="link" onclick="cerrarExtra('juego-module')">Cerrar</button>
+  </div>
+
+  <!-- Matching -->
+  <div id="matching" class="hidden">
+    <h3>Matching: Empareja concepto → definición</h3>
+    <div id="match-area" class="match-area"></div>
+    <div class="row" style="margin-top:10px;">
+      <button class="primary" id="match-check">Revisar</button>
+      <button class="link" id="match-reset">Reiniciar</button>
+    </div>
+    <p id="match-result" class="small"></p>
+  </div>
+
+  <!-- Scenarios -->
+  <div id="scenarios" class="hidden">
+    <h3>Simulación: Escoge la acción correcta</h3>
+    <p id="scenario-text"></p>
+    <div id="scenario-choices" class="choices"></div>
+    <p id="scenario-feedback" class="small"></p>
+    <div class="row"><button class="link" id="scenario-next">Siguiente</button></div>
+  </div>
+
+  <!-- Memory -->
+  <div id="memory" class="hidden">
+    <h3>Memoria de Ciberseguridad</h3>
+    <div id="memory-board" class="memory-board"></div>
+    <p id="memory-info" class="small"></p>
+    <div class="row"><button class="link" id="memory-reset">Reiniciar</button></div>
+  </div>
+
+  <!-- Password Guess -->
+  <div id="passguess" class="hidden">
+    <h3>Adivina la Contraseña (segura o débil)</h3>
+    <div id="pass-list" class="choices"></div>
+    <p id="pass-feedback" class="small"></p>
+    <div class="row"><button class="link" id="pass-reset">Reiniciar</button></div>
+  </div>
+
+  <!-- Microretos -->
+  <div id="microretos" class="hidden">
+    <h3>Micro-retos semanales</h3>
+    <p id="microreto-text"></p>
+    <div class="row">
+      <button class="primary" id="microreto-complete">Marcar como completado</button>
+    </div>
+    <p id="microreto-status" class="small"></p>
+  </div>
+
+  <!-- Trivial -->
+  <div id="trivial" class="hidden">
+    <h3>Trivial rápido</h3>
+    <p id="triv-q"></p>
+    <div id="triv-choices" class="choices"></div>
+    <p id="triv-timer" class="small"></p>
+    <p id="triv-score" class="small"></p>
+  </div>
+
+  <!-- Alerta -->
+  <div id="alerta" class="hidden">
+    <h3>Detecta la alerta</h3>
+    <p id="alert-desc"></p>
+    <div class="row">
+      <button class="primary" id="alert-report">Reportar</button>
+      <button class="secondary" id="alert-ignore">Ignorar</button>
+    </div>
+    <p id="alert-feedback" class="small"></p>
+  </div>
+
+  <!-- NUEVO JUEGO: PHISHING O REAL (SOLO UNO) -->
+  <div id="phishinggame" class="hidden">
+    <h3>Phishing o Real</h3>
+
+    <p id="phish-question" style="font-weight:600; margin:12px 0;"></p>
+
+    <div id="phish-choices" class="choices"></div>
+
+    <p id="phish-feedback" class="small"></p>
+
+    <div class="row" style="margin-top:8px;">
+      <button class="primary" id="phish-next">Siguiente</button>
+      <button class="link" id="phish-close">Cerrar</button>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+<!-- FIREBASE -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyCufrs5TeDZwmQDPlWtOpIoIB27tmy9szE",
+    authDomain: "foroseguridad.firebaseapp.com",
+    projectId: "foroseguridad",
+    storageBucket: "foroseguridad.firebasestorage.app",
+    messagingSenderId: "925627023628",
+    appId: "1:925627023628:web:057387cd5ee72f59b8c929",
+    measurementId: "G-7XP0LXSKFE"
+  };
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  window.db = getFirestore(app);
+  window.collection = collection;
+  window.addDoc = addDoc;
+  window.getDocs = getDocs;
+</script>
+
+<!-- JS -->
+<script src="script.js"></script>
+</body>
+</html>
+

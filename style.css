@@ -1,0 +1,318 @@
+/* ================================
+   THEME BASE (NO TOCAR VARIABLES)
+================================ */
+:root {
+  --background: linear-gradient(120deg, rgb(18, 16, 20),rgb(45, 41, 53));
+  --foreground: oklch(0.8614 0.0312 302.2432);
+  --card: oklch(25.189% 0.0177 305.242);
+  --card-foreground: oklch(0.8614 0.0312 302.2432);
+  --primary: oklch(83.825% 0.0456 311.88);
+  --primary-foreground: oklch(0.2161 0.0161 302.1624);
+  --secondary: oklch(55.135% 0.08053 312.306);
+  --secondary-foreground: oklch(0.8614 0.0312 302.2432);
+  --muted: oklch(0.2545 0.0233 303.7714);
+  --muted-foreground: oklch(0.6720 0.0250 308.0492);
+  --border: oklch(34.367% 0.02502 301.348);
+  --radius: 0.5rem;
+  --shadow: 0 6px 5px rgba(0,0,0,.08);
+  --destructive-foreground: oklch(87.291% 0.26074 145.535);
+  --sumami-background: oklch(28.553% 0.02369 311.01);
+  --font-sans: 'Inter', sans-serif;
+}
+
+
+/* ================================
+   RESET BÁSICO
+================================ */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ================================
+   HEADER / NAVBAR
+================================ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.80rem 2.50rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.welcome {
+  font-size: 0.9rem;
+  color: var(--foreground);
+  margin-left: 0.5rem;
+}
+
+/* ================================
+   BOTONES
+================================ */
+button {
+  font-family: inherit;
+  border-radius: var(--radius);
+  border: 1px solid transparent;
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.12);
+}
+
+.secondary {
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  border: 1px solid var(--border);
+}
+
+.secondary:hover {
+  filter: brightness(0.97);
+}
+
+.link {
+  background: transparent;
+  border: none;
+  color: var(--primary);
+  padding: 0;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.nav-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--foreground);
+}
+
+.nav-btn:hover {
+  background: var(--muted);
+}
+
+/* ================================
+   LAYOUT GENERAL
+================================ */
+.main {
+  max-width: 980px;
+  margin: 1.5rem auto;
+  padding: 0 1rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ================================
+   CARDS / SECCIONES
+================================ */
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 2.25rem;
+  margin-bottom: 2.25rem;
+  border: 1px solid var(--border);
+}
+
+.center {
+  max-width: 500px;
+  margin: 2rem auto;
+}
+
+/* ================================
+   TEXTOS
+================================ */
+h2{
+  margin-top: 0;
+  margin-bottom: 0.1rem;
+  text-align: center;
+}
+
+h3 {
+  margin-bottom: 0.70rem;
+}
+
+.small {
+  font-size: 0.85rem;
+  color: var(--muted-foreground);
+}
+
+/* ================================
+   INPUTS / FORMULARIOS
+================================ */
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 0.75rem 0.75rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-family: inherit;
+  background: var(--card);
+  color: var(--card-foreground);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: var(--foreground);
+  color: var(--card);
+
+}
+
+/* ================================
+   FEED / POSTS
+================================ */
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.posts {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.post {
+  background: var(--sumami-background);
+  border-radius: var(--radius);
+  padding: 0.9rem;
+  border: 1px solid var(--border);
+}
+
+.post h3 {
+  margin: 0.4rem 0;
+}
+
+.meta {
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+}
+
+/* ================================
+   CHATBOT
+================================ */
+.chat-window {
+  height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.6rem;
+  background: var(--background);
+}
+
+.msg-user {
+  text-align: right;
+  margin-bottom: 0.4rem;
+}
+
+.msg-bot {
+  margin-bottom: 0.4rem;
+}
+
+/* ================================
+   TEST / OPCIONES
+================================ */
+.choices {
+  display: flex;
+  flex-direction: column;
+  padding: 0.75rem 0.75rem;
+  gap: 1.5rem;
+}
+
+.test-result {
+  font-weight: 600;
+  color: var(--destructive-foreground);
+}
+
+/* ================================
+   JUEGOS
+================================ */
+.match-area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.match-item,
+.match-dropzone {
+  padding: 0.6rem;
+  border-radius: var(--radius);
+  border: 1px dashed var(--border);
+  background: var(--background);
+}
+
+.match-item {
+  cursor: grab;
+}
+
+.memory-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.mem-cell {
+  height: 60px;
+}
+
+/* ================================
+   PERFIL
+================================ */
+#profile-module p {
+  display: grid;
+  margin: 0.4rem 0;
+}
